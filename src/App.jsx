@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Lenis from 'lenis'
-import { Sun, Moon, Mail, ExternalLink, Code2, Server, Database, Palette, ChevronDown, Menu, X, Briefcase, User, FolderKanban, Contact, ArrowRight } from 'lucide-react'
+import { Sun, Moon, Mail, ExternalLink, Code2, Server, Database, Palette, ChevronDown, Menu, X, Briefcase, User, FolderKanban, Contact, ArrowRight, Cpu, Terminal, Sparkles, Zap, Brain, GitBranch, LayoutDashboard, TerminalSquare } from 'lucide-react'
 
 const GithubIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
@@ -61,8 +61,8 @@ const projectIcons = {
 const ProjectIcon = ({ type }) => {
   const src = projectIcons[type]
   return (
-    <div className="w-16 h-16 rounded-xl bg-coffee-400 dark:bg-coffee-700 flex items-center justify-center">
-      <img src={src} alt={type} className="w-10 h-10 object-contain invert dark:invert-0" />
+    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary-400/20 to-secondary-500/20 flex items-center justify-center">
+      <img src={src} alt={type} className="w-10 h-10 object-contain" />
     </div>
   )
 }
@@ -207,48 +207,57 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-milk-50 dark:bg-coffee-950 transition-colors duration-300">
-      <div className="max-w-lg mx-auto px-4">
+    <div className="min-h-screen bg-dark-950 transition-colors duration-300">
+      <div className="grid-pattern">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-milk-50/80 dark:bg-coffee-950/80 backdrop-blur-md border-b border-coffee-200 dark:border-coffee-800">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <nav className="fixed top-0 left-0 right-0 z-50 glass">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <button onClick={() => scrollToSection('hero')} className="text-xl font-semibold text-coffee-800 dark:text-milk-100">
-              Dev<span className="text-coffee-500 dark:text-milk-500">Portfolio</span>
+            <button onClick={() => scrollToSection('hero')} className="flex items-center gap-2 text-xl font-bold text-white group">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-400 to-secondary-500 flex items-center justify-center">
+                <TerminalSquare size={16} />
+              </div>
+              <span className="group-hover:text-primary-400 transition-colors duration-300">
+                <span className="text-white">Abdoullah</span>
+                <span className="text-primary-400">.dev</span>
+              </span>
             </button>
 
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden md:flex items-center gap-8">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`text-sm font-medium transition-colors ${
+                  className={`relative text-sm font-medium transition-all duration-300 ${
                     activeSection === item.id
-                      ? 'text-coffee-600 dark:text-milk-400'
-                      : 'text-coffee-600/70 dark:text-milk-100/70 hover:text-coffee-800 dark:hover:text-milk-100'
-                  }`}
+                      ? 'text-white'
+                      : 'text-dark-400 hover:text-white'
+                  } group`}
                 >
                   {item.label}
+                  <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-400 to-secondary-500 transition-all duration-300 group-hover:w-full ${
+                    activeSection === item.id ? 'w-full' : ''
+                  }`} />
                 </button>
               ))}
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-lg bg-coffee-200 dark:bg-coffee-800 text-coffee-700 dark:text-milk-300 hover:bg-coffee-300 dark:hover:bg-coffee-700 transition-colors"
+                className="p-2 rounded-full glass glow-border hover:scale-110 transition-transform"
               >
-                {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+                {darkMode ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-blue-400" />}
               </button>
             </div>
 
-            <div className="md:hidden flex items-center gap-2">
+            <div className="md:hidden flex items-center gap-3">
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-lg bg-coffee-200 dark:bg-coffee-800 text-coffee-700 dark:text-milk-300"
+                className="p-2 rounded-full glass"
               >
                 {darkMode ? <Sun size={18} /> : <Moon size={18} />}
               </button>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-coffee-700 dark:text-milk-300"
+                className="p-2 text-white"
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -263,14 +272,14 @@ function App() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-coffee-200 dark:border-coffee-800"
+              className="md:hidden glass border-t border-dark-800"
             >
-              <div className="px-4 py-4 space-y-2">
+              <div className="px-4 py-4 space-y-3">
                 {navItems.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="block w-full text-left px-4 py-2 text-coffee-700 dark:text-milk-300 hover:bg-coffee-200 dark:hover:bg-coffee-800 rounded-lg"
+                    className="block w-full text-left px-4 py-3 rounded-lg hover:bg-dark-800 text-white hover:text-primary-400 transition-colors"
                   >
                     {item.label}
                   </button>
@@ -282,130 +291,226 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center pt-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <section id="hero" className="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-r from-primary-400/20 to-secondary-500/20 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-l from-secondary-400/20 to-primary-500/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+        </div>
+        
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-coffee-200 dark:bg-coffee-800 text-coffee-700 dark:text-milk-300 text-sm mb-6">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              Available for work
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 group animate-pulse-glow">
+              <span className="w-2 h-2 rounded-full bg-gradient-to-r from-green-500 to-emerald-400 animate-pulse"></span>
+              <span className="text-sm font-medium text-dark-300 group-hover:text-white transition-colors">
+                <span className="font-mono">&gt; </span>Available for collaboration
+              </span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold text-coffee-900 dark:text-milk-100 mb-4">
-              Hi, I'm <span className="text-coffee-600 dark:text-milk-500">{personalInfo.name}</span>
-            </h1>
-
-            <p className="text-xl sm:text-2xl text-coffee-600 dark:text-milk-400 mb-6">
-              {personalInfo.tagline}
-            </p>
-
-            <p className="text-lg text-coffee-500 dark:text-milk-400/70 max-w-2xl mx-auto mb-8">
-              {personalInfo.bio}
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-6 mb-8 text-sm">
-              <div className="text-center">
-                <div className="text-2xl font-bold text-coffee-800 dark:text-milk-100">17</div>
-                <div className="text-coffee-600 dark:text-milk-500">Repositories</div>
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-12 mb-12">
+              <div className="flex-1 text-left">
+                <div className="relative inline-block mb-4">
+                  <span className="text-sm font-mono text-primary-400 tracking-widest uppercase">Hello, my name is</span>
+                  <div className="absolute -top-1 -right-2 w-2 h-2 bg-secondary-500 rounded-full animate-ping" />
+                </div>
+                
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
+                  <span className="text-white">Abdoullah</span>
+                  <span className="bg-gradient-to-r from-primary-400 to-secondary-500 bg-clip-text text-transparent"> El Ahmar</span>
+                </h1>
+                
+                <div className="relative mb-6">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-dark-300 mb-2">
+                    {personalInfo.tagline}
+                    <span className="text-primary-400 animate-pulse">_</span>
+                  </h2>
+                  <p className="text-lg text-dark-400 max-w-2xl leading-relaxed">
+                    {personalInfo.bio}
+                  </p>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-coffee-800 dark:text-milk-100">4</div>
-                <div className="text-coffee-600 dark:text-milk-500">Languages</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold text-coffee-800 dark:text-milk-100">2024</div>
-                <div className="text-coffee-600 dark:text-milk-500">Coding Since</div>
+              
+              <div className="flex-1">
+                <div className="relative group">
+                  <div className="glass-card rounded-2xl p-8 backdrop-blur-xl">
+                    <div className="flex flex-col items-center">
+                      <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary-400 to-secondary-500 p-1 mb-6">
+                        <div className="w-full h-full rounded-full bg-dark-900 flex items-center justify-center">
+                          <Terminal size={32} className="text-primary-400" />
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-4 text-center">
+                        <div className="text-sm font-mono text-dark-400 border border-dark-800 rounded-lg px-4 py-2">
+                          <span className="text-primary-400">$</span> whoami
+                          <div className="text-white mt-1">{personalInfo.name}</div>
+                        </div>
+                        
+                        <div className="grid grid-cols-3 gap-4">
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-white">17+</div>
+                            <div className="text-xs text-dark-400">Projects</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-white">12+</div>
+                            <div className="text-xs text-dark-400">Techs</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-white">∞</div>
+                            <div className="text-xs text-dark-400">Passion</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-primary-400 to-secondary-500 rounded-lg flex items-center justify-center">
+                    <Sparkles size={16} className="text-white" />
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
+            <div className="flex flex-wrap justify-center gap-6 mb-8">
               <a
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-coffee-800 dark:bg-milk-100 text-milk-100 dark:text-coffee-800 hover:bg-coffee-700 dark:hover:bg-milk-200 transition-colors"
+                className="group relative overflow-hidden glass-card px-6 py-3 rounded-xl flex items-center gap-3 hover:scale-105 transition-all duration-300"
               >
+                <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <GithubIcon />
-                GitHub
+                <span className="font-medium text-white">GitHub</span>
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </a>
+              
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-coffee-800 dark:border-cream-100 text-coffee-800 dark:text-milk-100 hover:bg-coffee-200 dark:hover:bg-coffee-800 transition-colors"
+                className="group relative overflow-hidden glass-card px-6 py-3 rounded-xl flex items-center gap-3 hover:scale-105 transition-all duration-300"
               >
+                <div className="absolute inset-0 bg-gradient-to-r from-secondary-500/10 to-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <Mail size={20} />
-                Contact
+                <span className="font-medium text-white">Contact Me</span>
+                <ExternalLink size={16} className="group-hover:rotate-12 transition-transform" />
               </a>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-8 mb-12">
+              <div className="text-center">
+                <div className="text-3xl font-bold bg-gradient-to-r from-primary-400 to-secondary-500 bg-clip-text text-transparent">17+</div>
+                <div className="text-sm text-dark-400">Repositories</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold bg-gradient-to-r from-secondary-400 to-primary-500 bg-clip-text text-transparent">12+</div>
+                <div className="text-sm text-dark-400">Technologies</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold bg-gradient-to-r from-primary-400 to-cyan-400 bg-clip-text text-transparent">2024+</div>
+                <div className="text-sm text-dark-400">Active Developer</div>
+              </div>
             </div>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
+            transition={{ delay: 1 }}
             className="absolute bottom-8 left-1/2 -translate-x-1/2"
           >
             <button
               onClick={() => scrollToSection('about')}
-              className="p-2 text-coffee-500 dark:text-milk-500 animate-bounce"
+              className="p-3 rounded-full glass hover:scale-110 transition-transform"
             >
-              <ChevronDown size={32} />
+              <ChevronDown size={24} className="animate-bounce text-primary-400" />
             </button>
           </motion.div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      <section id="about" className="py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-coffee-900 dark:text-milk-100 mb-8 text-center">
-              About Me
-            </h2>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+                <span className="text-white">About</span>
+                <span className="bg-gradient-to-r from-primary-400 to-secondary-500 bg-clip-text text-transparent"> Me</span>
+              </h2>
+              <p className="text-lg text-dark-400 max-w-2xl mx-auto">
+                Get to know the developer behind the code
+              </p>
+            </div>
 
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="aspect-square rounded-2xl bg-coffee-300 dark:bg-coffee-800 overflow-hidden">
-                <div className="w-full h-full flex items-center justify-center text-coffee-500 dark:text-milk-500">
-                  <User size={120} />
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="relative group">
+                <div className="aspect-square rounded-3xl glass-card overflow-hidden p-8">
+                  <div className="w-full h-full flex flex-col items-center justify-center">
+                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary-400 to-secondary-500 p-2 mb-6">
+                      <div className="w-full h-full rounded-full bg-dark-900 flex items-center justify-center">
+                        <User size={48} className="text-primary-400" />
+                      </div>
+                    </div>
+                    
+                    <div className="text-center">
+                      <h3 className="text-2xl font-bold text-white mb-2">{personalInfo.name}</h3>
+                      <p className="text-dark-400">{personalInfo.tagline}</p>
+                      
+                      <div className="mt-6 flex items-center justify-center gap-2 text-dark-400">
+                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                        {personalInfo.location}
+                      </div>
+                    </div>
+                    
+                    {/* Decorative elements */}
+                    <div className="absolute top-6 left-6 w-4 h-4 rounded-full bg-primary-500/30" />
+                    <div className="absolute bottom-6 right-6 w-6 h-6 rounded-full bg-secondary-500/20" />
+                  </div>
                 </div>
+                
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
 
-              <div className="space-y-4">
-                <p className="text-coffee-700 dark:text-milk-300 leading-relaxed">
-                  I'm a passionate computer science student with a strong interest in programming and AI.
-                  I love building practical applications and exploring new technologies.
-                </p>
-                <p className="text-coffee-700 dark:text-milk-300 leading-relaxed">
-                  When I'm not coding, I'm working on prompt engineering and AI optimization projects.
-                  Always eager to learn and collaborate on innovative solutions.
-                </p>
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold text-white">My Journey</h3>
+                  <p className="text-lg text-dark-300 leading-relaxed">
+                    I'm a passionate computer science student with a strong interest in programming and AI. 
+                    I love building practical applications and exploring new technologies that solve real-world problems.
+                  </p>
+                  <p className="text-lg text-dark-300 leading-relaxed">
+                    When I'm not coding, I'm working on prompt engineering and AI optimization projects. 
+                    Always eager to learn and collaborate on innovative solutions that push boundaries.
+                  </p>
+                </div>
 
                 <div className="grid grid-cols-3 gap-4 pt-4">
-                  <div className="text-center p-3 rounded-lg bg-milk-200 dark:bg-coffee-900">
-                    <div className="text-xl font-bold text-coffee-800 dark:text-milk-100">17</div>
-                    <div className="text-xs text-coffee-600 dark:text-milk-500">Repos</div>
+                  <div className="text-center p-4 rounded-xl glass-card hover:scale-105 transition-transform">
+                    <div className="text-3xl font-bold bg-gradient-to-r from-primary-400 to-secondary-500 bg-clip-text text-transparent">17+</div>
+                    <div className="text-sm text-dark-400 mt-1">Projects</div>
                   </div>
-                  <div className="text-center p-3 rounded-lg bg-milk-200 dark:bg-coffee-900">
-                    <div className="text-xl font-bold text-coffee-800 dark:text-milk-100">12</div>
-                    <div className="text-xs text-coffee-600 dark:text-milk-500">Languages</div>
+                  <div className="text-center p-4 rounded-xl glass-card hover:scale-105 transition-transform">
+                    <div className="text-3xl font-bold bg-gradient-to-r from-secondary-400 to-primary-500 bg-clip-text text-transparent">12+</div>
+                    <div className="text-sm text-dark-400 mt-1">Technologies</div>
                   </div>
-                  <div className="text-center p-3 rounded-lg bg-milk-200 dark:bg-coffee-900">
-                    <div className="text-xl font-bold text-coffee-800 dark:text-milk-100">2024</div>
-                    <div className="text-xs text-coffee-600 dark:text-milk-500">Since</div>
+                  <div className="text-center p-4 rounded-xl glass-card hover:scale-105 transition-transform">
+                    <div className="text-3xl font-bold bg-gradient-to-r from-primary-400 to-cyan-400 bg-clip-text text-transparent">∞</div>
+                    <div className="text-sm text-dark-400 mt-1">Passion</div>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-4 pt-4">
-                  <div className="flex items-center gap-2 text-coffee-600 dark:text-milk-400">
-                    <span className="w-2 h-2 rounded-full bg-coffee-500 dark:bg-milk-500"></span>
-                    {personalInfo.location}
+                <div className="pt-6">
+                  <div className="flex items-center gap-3 text-dark-300">
+                    <span className="w-3 h-3 rounded-full bg-gradient-to-r from-primary-400 to-secondary-500"></span>
+                    <span className="font-medium">Currently exploring:</span>
+                    <span className="text-white">AI Integration • Full-Stack Development • Cloud Architecture</span>
                   </div>
                 </div>
               </div>
@@ -415,206 +520,439 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      <section id="skills" className="py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-coffee-900 dark:text-milk-100 mb-8 text-center">
-              Skills & Technologies
-            </h2>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+                <span className="text-white">Tech</span>
+                <span className="bg-gradient-to-r from-primary-400 to-secondary-500 bg-clip-text text-transparent"> Stack</span>
+              </h2>
+              <p className="text-lg text-dark-400 max-w-2xl mx-auto">
+                Technologies I use to bring ideas to life
+              </p>
+            </div>
 
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
               {skills.map((skill, index) => (
                 <motion.div
                   key={skill.name}
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex flex-col items-center justify-center p-4 rounded-xl bg-milk-200 dark:bg-coffee-900"
+                  transition={{ delay: index * 0.05, type: "spring", stiffness: 100 }}
+                  className="group relative"
                 >
-                  <TechLogo name={skill.logo} />
-                  <span className="mt-2 text-sm font-medium text-coffee-800 dark:text-milk-200">{skill.name}</span>
+                  <div className="glass-card rounded-xl p-6 flex flex-col items-center justify-center h-full transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/20">
+                    <div className="w-16 h-16 rounded-lg bg-dark-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <TechLogo name={skill.logo} />
+                    </div>
+                    <span className="text-sm font-medium text-white group-hover:text-primary-400 transition-colors duration-300">
+                      {skill.name}
+                    </span>
+                    
+                    <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary-500/30 rounded-xl transition-all duration-300 pointer-events-none" />
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 rounded-xl blur transition-all duration-300 pointer-events-none" />
+                  </div>
+                  
+                  {/* Skill level indicator */}
+                  <div className="mt-2 w-full h-1 bg-dark-800 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-primary-400 to-secondary-500 rounded-full transition-all duration-500 group-hover:w-full" 
+                         style={{ width: `${70 + (index * 2)}%` }} />
+                  </div>
                 </motion.div>
               ))}
+            </div>
+            
+            <div className="mt-16 text-center">
+              <div className="glass-card rounded-2xl p-8 max-w-3xl mx-auto">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="text-left">
+                    <h3 className="text-xl font-bold text-white mb-2">Always Learning</h3>
+                    <p className="text-dark-400">
+                      Continuously exploring new frameworks and tools to stay at the cutting edge
+                    </p>
+                  </div>
+<div className="flex items-center gap-2">
+                          <Cpu size={24} className="text-primary-400 animate-pulse" />
+                          <Brain size={24} className="text-secondary-400 animate-pulse" style={{ animationDelay: '0.2s' }} />
+                          <GitBranch size={24} className="text-cyan-400 animate-pulse" style={{ animationDelay: '0.4s' }} />
+                        </div>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+      <section id="projects" className="py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-coffee-900 dark:text-milk-100 mb-8 text-center">
-              Featured Projects
-            </h2>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+                <span className="text-white">Featured</span>
+                <span className="bg-gradient-to-r from-primary-400 to-secondary-500 bg-clip-text text-transparent"> Projects</span>
+              </h2>
+              <p className="text-lg text-dark-400 max-w-2xl mx-auto">
+                A showcase of my recent work and contributions
+              </p>
+            </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-8">
               {projects.map((project, index) => (
                 <motion.div
                   key={project.title}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group rounded-2xl bg-milk-50 dark:bg-coffee-950 overflow-hidden border border-coffee-200 dark:border-coffee-800 hover:border-coffee-400 dark:hover:border-coffee-600 transition-colors"
+                  transition={{ delay: index * 0.15, type: "spring", stiffness: 100 }}
+                  className="group relative"
                 >
-                  <div className="aspect-video bg-coffee-300 dark:bg-coffee-800 flex items-center justify-center">
-                    <ProjectIcon type={project.icon} />
-                  </div>
+                  <div className="glass-card rounded-2xl overflow-hidden h-full border-2 border-dark-800 hover:border-primary-500/30 transition-all duration-500">
+                    <div className="relative aspect-video bg-gradient-to-br from-dark-800 to-dark-900 flex items-center justify-center overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
+                      <div className="relative z-10">
+                        <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-primary-400 to-secondary-500 p-2">
+                          <div className="w-full h-full rounded-lg bg-dark-900 flex items-center justify-center">
+                            <ProjectIcon type={project.icon} />
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="absolute top-4 left-4">
+                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-dark-900/80 text-xs text-white">
+                          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                          Active
+                        </div>
+                      </div>
+                      
+                      <div className="absolute top-4 right-4">
+                        <div className="flex gap-2">
+                          {project.tags.slice(0, 2).map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2 py-1 rounded-md bg-dark-900/80 text-xs text-primary-400 font-mono"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
 
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-coffee-800 dark:text-milk-100 mb-2 group-hover:text-coffee-600 dark:group-hover:text-milk-400 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-coffee-600 dark:text-milk-400 mb-4">
-                      {project.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1 text-sm rounded-full bg-coffee-200 dark:bg-coffee-800 text-coffee-700 dark:text-milk-400"
-                        >
-                          {tag}
+                    <div className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <h3 className="text-xl font-bold text-white group-hover:text-primary-400 transition-colors duration-300">
+                          {project.title}
+                        </h3>
+                        <span className="text-xs text-dark-400 font-mono bg-dark-800 px-2 py-1 rounded">
+                          v1.0
                         </span>
-                      ))}
-                    </div>
+                      </div>
+                      
+                      <p className="text-dark-400 mb-6 leading-relaxed">
+                        {project.description}
+                      </p>
 
-                    <div className="flex gap-4">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-coffee-700 dark:text-milk-400 hover:text-coffee-900 dark:hover:text-milk-100 transition-colors"
-                      >
-                        <GithubIcon />
-                        Code
-                      </a>
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-coffee-700 dark:text-milk-400 hover:text-coffee-900 dark:hover:text-milk-100 transition-colors"
-                      >
-                        <ExternalLink size={18} />
-                        Live Demo
-                      </a>
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-3 py-1.5 text-xs rounded-full bg-dark-800 text-dark-300 hover:bg-dark-700 hover:text-white transition-colors duration-300 font-medium"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group/link flex items-center gap-2 text-sm text-white hover:text-primary-400 transition-colors duration-300"
+                        >
+                          <div className="w-8 h-8 rounded-lg bg-dark-800 flex items-center justify-center group-hover/link:bg-primary-500/20 transition-colors">
+                            <GithubIcon />
+                          </div>
+                          <span>View Code</span>
+                          <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+                        </a>
+                        
+                        <div className="flex items-center gap-2 text-sm text-dark-400">
+                          <span className="flex items-center gap-1">
+                            <Zap size={14} />
+                            <span>Production</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Corner accent */}
+                    <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+                      <div className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-br from-primary-500/20 to-transparent rotate-45" />
                     </div>
                   </div>
+                  
+                  {/* Glow effect */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 </motion.div>
               ))}
+            </div>
+            
+            <div className="text-center mt-16">
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 glass-card px-8 py-4 rounded-xl hover:scale-105 transition-all duration-300 group"
+              >
+                <span className="text-lg font-medium text-white">View All Projects</span>
+                <ExternalLink size={20} className="group-hover:rotate-12 transition-transform" />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary-500/10 to-secondary-500/10 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity" />
+              </a>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+      <section id="experience" className="py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-coffee-900 dark:text-milk-100 mb-8 text-center">
-              Experience
-            </h2>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+                <span className="text-white">Experience</span>
+                <span className="bg-gradient-to-r from-primary-400 to-secondary-500 bg-clip-text text-transparent"> & Journey</span>
+              </h2>
+              <p className="text-lg text-dark-400 max-w-2xl mx-auto">
+                My path through technology and development
+              </p>
+            </div>
 
-            <div className="space-y-6">
-              {experiences.map((exp, index) => (
-                <motion.div
-                  key={exp.company}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative pl-8 pb-6 border-l-2 border-coffee-300 dark:border-coffee-700 last:border-transparent"
-                >
-                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-coffee-500 dark:bg-milk-500 border-4 border-cream-100 dark:border-coffee-900" />
+            <div className="glass-card rounded-2xl p-8 max-w-4xl mx-auto">
+              <div className="space-y-8">
+                {experiences.map((exp, index) => (
+                  <motion.div
+                    key={exp.company}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.15 }}
+                    className="relative pl-12 pb-8 border-l-2 border-dark-700 last:pb-0"
+                  >
+                    <div className="absolute -left-[10px] top-0 w-5 h-5 rounded-full bg-gradient-to-r from-primary-400 to-secondary-500 border-4 border-dark-900" />
+                    
+                    <div className="space-y-4">
+                      <div className="flex flex-wrap items-start justify-between gap-4">
+                        <div>
+                          <h3 className="text-xl font-bold text-white mb-1">
+                            {exp.role}
+                          </h3>
+                          <p className="font-medium text-primary-400">
+                            {exp.company}
+                          </p>
+                        </div>
+                        <span className="px-3 py-1 rounded-full bg-dark-800 text-dark-300 text-sm font-medium">
+                          {exp.period}
+                        </span>
+                      </div>
 
-                  <div className="space-y-2">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <h3 className="text-lg font-semibold text-coffee-800 dark:text-milk-100">
-                        {exp.role}
-                      </h3>
-                      <span className="text-sm text-coffee-600 dark:text-milk-500">
-                        {exp.period}
-                      </span>
+                      <p className="text-dark-300 leading-relaxed">
+                        {exp.description}
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        <span className="px-3 py-1 rounded-full bg-dark-800 text-xs text-dark-400 font-mono">
+                          Computer Science
+                        </span>
+                        <span className="px-3 py-1 rounded-full bg-dark-800 text-xs text-dark-400 font-mono">
+                          Software Development
+                        </span>
+                        <span className="px-3 py-1 rounded-full bg-dark-800 text-xs text-dark-400 font-mono">
+                          AI & Prompt Engineering
+                        </span>
+                      </div>
                     </div>
-
-                    <p className="font-medium text-coffee-600 dark:text-milk-400">
-                      {exp.company}
-                    </p>
-
-                    <p className="text-coffee-700 dark:text-milk-400 leading-relaxed">
-                      {exp.description}
+                    
+                    {/* Connection line */}
+                    {index < experiences.length - 1 && (
+                      <div className="absolute -bottom-4 left-0 w-0.5 h-4 bg-gradient-to-b from-primary-500/50 to-transparent" />
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+              
+              <div className="mt-12 pt-8 border-t border-dark-800">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-400/20 to-secondary-500/20 flex items-center justify-center">
+                    <Sparkles size={20} className="text-primary-400" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-white mb-1">Always Learning</h4>
+                    <p className="text-dark-400">
+                      Continuously expanding skills through hands-on projects and new technologies
                     </p>
                   </div>
-                </motion.div>
-              ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <section id="contact" className="py-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-coffee-900 dark:text-milk-100 mb-4">
-              Get In Touch
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+              <span className="text-white">Let's</span>
+              <span className="bg-gradient-to-r from-primary-400 to-secondary-500 bg-clip-text text-transparent"> Connect</span>
             </h2>
 
-            <p className="text-coffee-600 dark:text-milk-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-dark-400 mb-12 max-w-2xl mx-auto">
               I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-coffee-800 dark:bg-milk-100 text-milk-100 dark:text-coffee-800 hover:bg-coffee-700 dark:hover:bg-milk-200 transition-colors"
-              >
-                <Mail size={20} />
-                {personalInfo.email}
-              </a>
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-coffee-800 dark:border-cream-100 text-coffee-800 dark:text-milk-100 hover:bg-coffee-200 dark:hover:bg-coffee-800 transition-colors"
-              >
-                <GithubIcon />
-                GitHub
-              </a>
+            <div className="glass-card rounded-2xl p-8 max-w-3xl mx-auto mb-12">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="text-left">
+                  <h3 className="text-xl font-bold text-white mb-4">Quick Links</h3>
+                  <div className="space-y-3">
+                    <a
+                      href={`mailto:${personalInfo.email}`}
+                      className="group flex items-center gap-3 text-dark-400 hover:text-white transition-colors"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-dark-800 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors">
+                        <Mail size={18} />
+                      </div>
+                      <div>
+                        <div className="font-medium text-white">Email</div>
+                        <div className="text-sm">{personalInfo.email}</div>
+                      </div>
+                    </a>
+                    <a
+                      href={personalInfo.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-3 text-dark-400 hover:text-white transition-colors"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-dark-800 flex items-center justify-center group-hover:bg-primary-500/20 transition-colors">
+                        <GithubIcon />
+                      </div>
+                      <div>
+                        <div className="font-medium text-white">GitHub</div>
+                        <div className="text-sm">/Abdoullah0055</div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="text-left">
+                  <h3 className="text-xl font-bold text-white mb-4">Ready to Collaborate?</h3>
+                  <p className="text-dark-400 mb-4">
+                    Whether you need a full-stack solution, AI integration, or just want to talk tech, I'm here to help.
+                  </p>
+                  <a
+                    href={`mailto:${personalInfo.email}`}
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary-500 to-secondary-500 text-white hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-300"
+                  >
+                    <Mail size={20} />
+                    <span className="font-medium">Start a Conversation</span>
+                    <ArrowRight size={16} />
+                  </a>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-coffee-200 dark:border-coffee-800">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <p className="text-coffee-600 dark:text-milk-500">
-            © {new Date().getFullYear()} {personalInfo.name}. All rights reserved.
-          </p>
+      <footer className="py-12 border-t border-dark-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+          <div className="glass-card rounded-2xl p-8 mb-8">
+            <h3 className="text-2xl font-bold text-white mb-4">Let's Build Something Amazing</h3>
+            <p className="text-dark-400 mb-6 max-w-2xl mx-auto">
+              I'm passionate about creating impactful software solutions. Whether it's a new project or improving existing systems, let's collaborate.
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="group flex items-center gap-3 px-6 py-3 rounded-xl bg-gradient-to-r from-primary-500 to-secondary-500 text-white hover:shadow-lg hover:shadow-primary-500/30 transition-all duration-300"
+              >
+                <Mail size={20} />
+                <span className="font-medium">Contact Me</span>
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </a>
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 px-6 py-3 rounded-xl glass hover:bg-dark-800 transition-all duration-300"
+              >
+                <GithubIcon />
+                <span className="font-medium text-white">GitHub Profile</span>
+                <ExternalLink size={16} className="group-hover:rotate-12 transition-transform" />
+              </a>
+            </div>
+          </div>
+          
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <button onClick={() => scrollToSection('hero')} className="flex items-center gap-2 text-xl font-bold text-white group">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary-400 to-secondary-500 flex items-center justify-center">
+                <TerminalSquare size={16} />
+              </div>
+              <span className="group-hover:text-primary-400 transition-colors duration-300">
+                Abdoullah<span className="text-primary-400">.dev</span>
+              </span>
+            </button>
+            
+            <div className="flex items-center gap-6">
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-dark-400 hover:text-white transition-colors"
+              >
+                <GithubIcon />
+              </a>
+              <a
+                href={`mailto:${personalInfo.email}`}
+                className="text-dark-400 hover:text-white transition-colors"
+              >
+                <Mail size={20} />
+              </a>
+            </div>
+          </div>
+          
+          <div className="mt-8 pt-8 border-t border-dark-800">
+            <p className="text-dark-400">
+              © {new Date().getFullYear()} {personalInfo.name}. Crafted with passion in Sainte-Therese, Quebec.
+            </p>
+          </div>
         </div>
       </footer>
       </div>

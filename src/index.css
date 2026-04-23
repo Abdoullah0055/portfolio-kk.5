@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-coffee-50: #fdfbf7;
+  --color-coffee-100: #f8f3eb;
+  --color-coffee-200: #f0e8d8;
+  --color-coffee-300: #e0d0b8;
+  --color-coffee-400: #c9a66a;
+  --color-coffee-500: #a88952;
+  --color-coffee-600: #8a6f44;
+  --color-coffee-700: #6e5536;
+  --color-coffee-800: #544028;
+  --color-coffee-900: #3d301f;
+  --color-coffee-950: #1a1008;
+  
+  --color-milk-50: #fdfbf7;
+  --color-milk-100: #f8f3eb;
+  --color-milk-200: #f0e8d8;
+  --color-milk-300: #e0d0b8;
+  --color-milk-400: #c9a66a;
+  --color-milk-500: #a88952;
+  --color-milk-600: #8a6f44;
+  --color-milk-700: #6e5536;
+  --color-milk-800: #544028;
+  --color-milk-900: #3d301f;
+  --color-milk-950: #1a1008;
+  
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  
+  --animate-fade-in: fadeIn 0.5s ease-out;
+  --animate-slide-up: slideUp 0.5s ease-out;
+  
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+html.dark {
+  --color-bg: #1a1008;
+  --color-text: #f8f3eb;
+  --color-accent: #c9a66a;
+}
+
+* {
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+
+body {
+  background-color: var(--color-milk-50);
+  color: var(--color-coffee-800);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: var(--color-coffee-950);
+  color: var(--color-milk-100);
+}
+
+html.dark {
+  background-color: var(--color-coffee-950);
+  color: var(--color-milk-100);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-coffee-200);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background-color: var(--color-coffee-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-coffee-400);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background-color: var(--color-coffee-600);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-coffee-500);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-coffee-500);
+}

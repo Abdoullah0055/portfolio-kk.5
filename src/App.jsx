@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion'
-import { ArrowUpRight, Mail, Code, Terminal, Cpu, Globe, ChevronDown, ExternalLink, Sparkles, Zap } from 'lucide-react'
+import { ArrowUpRight, Mail, Code, Terminal, Cpu, Globe, ChevronDown, ExternalLink, Sparkles, Zap, Coffee } from 'lucide-react'
 
 // Custom Icons (not available in older lucide-react)
 const GithubIcon = ({ size = 24, className = '' }) => (
@@ -20,7 +20,7 @@ const GithubIcon = ({ size = 24, className = '' }) => (
   </svg>
 )
 
-const LinkedinIcon = ({ size = 24, className = '' }) => (
+const SunIcon = ({ size = 24, className = '' }) => (
   <svg
     width={size}
     height={size}
@@ -32,9 +32,31 @@ const LinkedinIcon = ({ size = 24, className = '' }) => (
     strokeLinejoin="round"
     className={className}
   >
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2" />
+    <path d="M12 20v2" />
+    <path d="m4.93 4.93 1.41 1.41" />
+    <path d="m17.66 17.66 1.41 1.41" />
+    <path d="M2 12h2" />
+    <path d="M20 12h2" />
+    <path d="m6.34 17.66-1.41 1.41" />
+    <path d="m19.07 4.93-1.41 1.41" />
+  </svg>
+)
+
+const MoonIcon = ({ size = 24, className = '' }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+  >
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
   </svg>
 )
 
@@ -136,9 +158,23 @@ const staggerContainer = {
   }
 }
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+// Theme Toggle Component
+const ThemeToggle = ({ darkMode, setDarkMode }) => {
+  return (
+    <button
+      onClick={() => setDarkMode(!darkMode)}
+      className="theme-toggle"
+      aria-label="Toggle theme"
+    >
+      <div className="theme-toggle-thumb">
+        {darkMode ? (
+          <MoonIcon size={12} className="text-[var(--bg-primary)]" />
+        ) : (
+          <SunIcon size={12} className="text-[var(--bg-primary)]" />
+        )}
+      </div>
+    </button>
+  )
 }
 
 // Components
@@ -154,8 +190,8 @@ const SectionHeader = ({ number, title, align = 'left' }) => {
       variants={fadeInUp}
       className={`flex items-baseline gap-4 mb-16 ${align === 'right' ? 'justify-end' : ''}`}
     >
-      <span className="font-mono text-sm text-[#666666]">// {number}</span>
-      <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight">
+      <span className="font-mono text-sm text-[var(--text-muted)]">// {number}</span>
+      <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-[var(--text-primary)]">
         {title}
       </h2>
     </motion.div>
@@ -176,17 +212,17 @@ const SkillBar = ({ name, level, index }) => {
       className="group"
     >
       <div className="flex justify-between items-center mb-2">
-        <span className="font-mono text-sm text-[#a0a0a0] group-hover:text-[#ff4d2e] transition-colors">
+        <span className="font-mono text-sm text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">
           {name}
         </span>
-        <span className="font-mono text-xs text-[#666666]">{level}%</span>
+        <span className="font-mono text-xs text-[var(--text-muted)]">{level}%</span>
       </div>
-      <div className="h-[2px] bg-[#1a1a1a] overflow-hidden">
+      <div className="skill-bar-coffee">
         <motion.div
           initial={{ scaleX: 0 }}
           animate={isInView ? { scaleX: level / 100 } : { scaleX: 0 }}
           transition={{ duration: 1.2, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="h-full bg-gradient-to-r from-[#ff4d2e] to-[#ff8a65] origin-left"
+          className="skill-bar-coffee-fill"
         />
       </div>
     </motion.div>
@@ -203,16 +239,16 @@ const ProjectCard = ({ project, index, isReversed }) => {
       initial="hidden"
       animate={isInView ? 'visible' : 'hidden'}
       variants={isReversed ? fadeInRight : fadeInLeft}
-      className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center ${isReversed ? 'lg:direction-rtl' : ''}`}
+      className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center`}
     >
       <div className={`relative ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
-        <div className="relative aspect-[4/3] bg-[#111111] border border-[#1a1a1a] overflow-hidden group">
+        <div className="project-card-coffee aspect-[4/3] flex items-center justify-center group overflow-hidden">
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="font-mono text-[120px] sm:text-[180px] font-bold text-[#1a1a1a] select-none group-hover:text-[#ff4d2e] transition-colors duration-500">
+            <span className="font-serif text-[100px] sm:text-[150px] font-medium text-[var(--bg-tertiary)] select-none group-hover:text-[var(--accent)] transition-colors duration-500">
               0{index + 1}
             </span>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent opacity-60" />
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -221,32 +257,32 @@ const ProjectCard = ({ project, index, isReversed }) => {
           >
             <div className="flex flex-wrap gap-2">
               {project.tags.map((tag) => (
-                <span key={tag} className="tag">
+                <span key={tag} className="tag-coffee">
                   {tag}
                 </span>
               ))}
             </div>
           </motion.div>
         </div>
-        <div className={`absolute -bottom-4 ${isReversed ? 'right-8' : 'left-8'} w-24 h-24 border border-[#ff4d2e] opacity-30`} />
+        <div className={`absolute -bottom-4 ${isReversed ? 'right-8' : 'left-8'} w-24 h-24 border border-[var(--accent)] opacity-20 rotate-3`} />
       </div>
 
       <div className={`space-y-6 ${isReversed ? 'lg:order-1 lg:text-right' : 'lg:order-2'}`}>
         <div className="flex items-center gap-4">
-          <span className="font-mono text-sm text-[#666666]">{project.year}</span>
-          <div className="h-[1px] flex-1 bg-[#1a1a1a]" />
+          <span className="font-mono text-sm text-[var(--text-muted)]">{project.year}</span>
+          <div className="h-[1px] flex-1 bg-[var(--border)]" />
         </div>
-        <h3 className="font-serif text-3xl sm:text-4xl font-normal">
+        <h3 className="font-serif text-3xl sm:text-4xl font-medium text-[var(--text-primary)]">
           {project.title}
         </h3>
-        <p className="text-[#a0a0a0] leading-relaxed max-w-md">
+        <p className="text-[var(--text-secondary)] leading-relaxed max-w-md">
           {project.description}
         </p>
         <a
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
-          className={`inline-flex items-center gap-2 font-mono text-sm text-[#a0a0a0] hover:text-[#ff4d2e] transition-colors group ${isReversed ? 'flex-row-reverse' : ''}`}
+          className={`inline-flex items-center gap-2 font-mono text-sm text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors group ${isReversed ? 'flex-row-reverse' : ''}`}
         >
           <span>View Project</span>
           <ArrowUpRight size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -256,7 +292,7 @@ const ProjectCard = ({ project, index, isReversed }) => {
   )
 }
 
-const Navigation = () => {
+const Navigation = ({ darkMode, setDarkMode }) => {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
 
@@ -302,17 +338,18 @@ const Navigation = () => {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-[#0a0a0a]/90 backdrop-blur-md border-b border-[#1a1a1a]' : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 nav-coffee ${scrolled ? 'scrolled' : ''}`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex items-center justify-between h-20">
           <button
             onClick={() => scrollToSection('hero')}
-            className="font-serif text-xl tracking-tight hover:text-[#ff4d2e] transition-colors"
+            className="flex items-center gap-2 group"
           >
-            AE
+            <Coffee size={24} className="text-[var(--accent)]" />
+            <span className="font-serif text-xl tracking-tight text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">
+              AE
+            </span>
           </button>
 
           <div className="hidden md:flex items-center gap-8">
@@ -320,9 +357,7 @@ const Navigation = () => {
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className={`nav-link font-mono text-xs tracking-widest uppercase transition-colors ${
-                  activeSection === link.id ? 'text-[#ff4d2e]' : 'text-[#a0a0a0] hover:text-white'
-                }`}
+                className={`nav-link-coffee ${activeSection === link.id ? 'active' : ''}`}
               >
                 {link.label}
               </button>
@@ -330,18 +365,19 @@ const Navigation = () => {
           </div>
 
           <div className="flex items-center gap-4">
+            <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
             <a
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#a0a0a0] hover:text-[#ff4d2e] transition-colors"
+              className="text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
               aria-label="GitHub"
             >
               <GithubIcon size={18} />
             </a>
             <a
               href={`mailto:${personalInfo.email}`}
-              className="text-[#a0a0a0] hover:text-[#ff4d2e] transition-colors"
+              className="text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
               aria-label="Email"
             >
               <Mail size={18} />
@@ -361,17 +397,10 @@ const Hero = () => {
     <section
       id="hero"
       ref={ref}
-      className="min-h-screen flex flex-col justify-center relative overflow-hidden pt-20"
+      className="min-h-screen flex flex-col justify-center relative overflow-hidden pt-20 hero-coffee bg-[var(--bg-primary)]"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-[#ff4d2e] opacity-[0.03] blur-[150px] rounded-full" />
-        <div className="absolute bottom-1/4 -left-20 w-[400px] h-[400px] bg-[#00d4ff] opacity-[0.02] blur-[120px] rounded-full" />
-      </div>
-
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-          {/* Left Content */}
           <div className="space-y-8">
             <motion.div
               initial="hidden"
@@ -380,22 +409,22 @@ const Hero = () => {
             >
               <motion.p
                 variants={fadeInUp}
-                className="font-mono text-sm text-[#666666] tracking-widest uppercase mb-4"
+                className="font-mono text-sm text-[var(--text-muted)] tracking-widest uppercase mb-4"
               >
-                Developer & Designer
+                Developer & AI Specialist
               </motion.p>
 
               <motion.h1
                 variants={fadeInUp}
-                className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-normal tracking-tight leading-[0.95]"
+                className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-medium tracking-tight leading-[0.95] text-[var(--text-primary)]"
               >
                 <span className="block">Abdoullah</span>
-                <span className="block text-[#ff4d2e]">El Ahmar</span>
+                <span className="block text-[var(--accent)] italic">El Ahmar</span>
               </motion.h1>
 
               <motion.p
                 variants={fadeInUp}
-                className="text-lg text-[#a0a0a0] max-w-md leading-relaxed mt-6"
+                className="text-lg text-[var(--text-secondary)] max-w-md leading-relaxed mt-6"
               >
                 {personalInfo.bio}
               </motion.p>
@@ -406,7 +435,7 @@ const Hero = () => {
               >
                 <a
                   href="#contact"
-                  className="btn-filled inline-flex items-center gap-2"
+                  className="btn-coffee inline-flex items-center gap-2"
                 >
                   <span>Get in Touch</span>
                   <ArrowUpRight size={14} />
@@ -415,7 +444,7 @@ const Hero = () => {
                   href={personalInfo.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-sharp inline-flex items-center gap-2"
+                  className="btn-coffee-outline inline-flex items-center gap-2"
                 >
                   <GithubIcon size={14} />
                   <span>GitHub</span>
@@ -424,7 +453,6 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          {/* Right Content - Stats & Visual */}
           <motion.div
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
@@ -432,9 +460,8 @@ const Hero = () => {
             className="relative"
           >
             <motion.div variants={fadeInRight} className="relative">
-              {/* Large Typography Element */}
               <div className="relative">
-                <span className="font-serif text-[180px] sm:text-[240px] lg:text-[300px] font-normal leading-none text-[#111111] select-none">
+                <span className="display-coffee">
                   01
                 </span>
                 <div className="absolute bottom-8 left-8 space-y-6">
@@ -446,10 +473,10 @@ const Hero = () => {
                       transition={{ delay: 0.5 + index * 0.1 }}
                       className="flex items-baseline gap-3"
                     >
-                      <span className="font-serif text-3xl sm:text-4xl text-[#ff4d2e]">
+                      <span className="font-serif text-3xl sm:text-4xl text-[var(--accent)]">
                         {stat.number}
                       </span>
-                      <span className="font-mono text-xs text-[#666666] uppercase tracking-widest">
+                      <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
                         {stat.label}
                       </span>
                     </motion.div>
@@ -457,15 +484,13 @@ const Hero = () => {
                 </div>
               </div>
 
-              {/* Decorative Lines */}
-              <div className="absolute top-0 right-0 w-32 h-[1px] bg-gradient-to-r from-[#ff4d2e] to-transparent" />
-              <div className="absolute top-0 right-0 w-[1px] h-32 bg-gradient-to-b from-[#ff4d2e] to-transparent" />
+              <div className="absolute top-0 right-0 w-32 h-[1px] bg-gradient-to-r from-[var(--accent)] to-transparent" />
+              <div className="absolute top-0 right-0 w-[1px] h-32 bg-gradient-to-b from-[var(--accent)] to-transparent" />
             </motion.div>
           </motion.div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -477,8 +502,8 @@ const Hero = () => {
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="font-mono text-xs text-[#666666] uppercase tracking-widest">Scroll</span>
-          <ChevronDown size={16} className="text-[#666666]" />
+          <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">Scroll</span>
+          <ChevronDown size={16} className="text-[var(--text-muted)]" />
         </motion.div>
       </motion.div>
     </section>
@@ -490,7 +515,7 @@ const About = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="about" ref={ref} className="py-32 relative">
+    <section id="about" ref={ref} className="py-32 relative bg-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <SectionHeader number="01" title="About" />
 
@@ -501,14 +526,14 @@ const About = () => {
             variants={fadeInLeft}
             className="space-y-8"
           >
-            <p className="font-serif text-2xl sm:text-3xl leading-snug text-[#f5f5f0]">
+            <p className="font-serif text-2xl sm:text-3xl leading-snug text-[var(--text-primary)]">
               I'm a Computer Science student based in{' '}
-              <span className="text-[#ff4d2e]">Sainte-Therese, Quebec</span>, passionate about building software that solves real problems.
+              <span className="text-[var(--accent)] italic">Sainte-Therese, Quebec</span>, passionate about building software that solves real problems.
             </p>
-            <p className="text-[#a0a0a0] leading-relaxed">
+            <p className="text-[var(--text-secondary)] leading-relaxed">
               My journey in tech started with a curiosity about how things work. Today, I'm focused on full-stack development, AI integration, and creating intuitive user experiences. I believe in writing clean, maintainable code and staying curious about emerging technologies.
             </p>
-            <p className="text-[#a0a0a0] leading-relaxed">
+            <p className="text-[var(--text-secondary)] leading-relaxed">
               When I'm not coding, I'm exploring prompt engineering, experimenting with AI tools, or contributing to open-source projects. Always eager to learn and collaborate on innovative solutions.
             </p>
           </motion.div>
@@ -519,20 +544,20 @@ const About = () => {
             variants={fadeInRight}
             className="space-y-8"
           >
-            <div className="border border-[#1a1a1a] p-8 space-y-6">
-              <h3 className="font-serif text-xl">Currently Exploring</h3>
+            <div className="card-coffee p-8 space-y-6">
+              <h3 className="font-serif text-xl text-[var(--text-primary)]">Currently Exploring</h3>
               <div className="space-y-4">
                 {['AI Integration', 'Full-Stack Development', 'Cloud Architecture', 'Mobile Development'].map((item, index) => (
                   <div key={item} className="flex items-center gap-4">
-                    <span className="font-mono text-sm text-[#666666]">0{index + 1}</span>
-                    <span className="text-[#a0a0a0]">{item}</span>
+                    <span className="font-mono text-sm text-[var(--text-muted)]">0{index + 1}</span>
+                    <span className="text-[var(--text-secondary)]">{item}</span>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="flex items-center gap-4 text-[#a0a0a0]">
-              <span className="w-2 h-2 bg-[#ff4d2e] rounded-full animate-pulse" />
+            <div className="flex items-center gap-4 text-[var(--text-secondary)]">
+              <span className="w-2 h-2 bg-[var(--accent)] rounded-full animate-pulse" />
               <span className="font-mono text-sm">Available for collaboration</span>
             </div>
           </motion.div>
@@ -552,13 +577,12 @@ const Skills = () => {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
 
   return (
-    <section id="skills" ref={ref} className="py-32 relative overflow-hidden">
-      {/* Large Background Text */}
+    <section id="skills" ref={ref} className="py-32 relative overflow-hidden bg-[var(--bg-secondary)]">
       <motion.div
         style={{ y: backgroundY }}
         className="absolute top-1/2 left-0 -translate-y-1/2 pointer-events-none select-none"
       >
-        <span className="font-serif text-[200px] sm:text-[300px] lg:text-[400px] font-normal text-[#0f0f0f] whitespace-nowrap">
+        <span className="font-serif text-[150px] sm:text-[250px] lg:text-[350px] font-medium text-[var(--bg-tertiary)] whitespace-nowrap opacity-50">
           SKILLS
         </span>
       </motion.div>
@@ -590,12 +614,11 @@ const Skills = () => {
           </motion.div>
         </div>
 
-        {/* Tech Categories */}
         <motion.div
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           variants={fadeInUp}
-          className="mt-24 pt-16 border-t border-[#1a1a1a]"
+          className="mt-24 pt-16 border-t border-[var(--border)]"
         >
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
             {[
@@ -606,10 +629,10 @@ const Skills = () => {
             ].map(({ icon: Icon, label, desc }) => (
               <div key={label} className="group">
                 <div className="flex items-center gap-3 mb-2">
-                  <Icon size={16} className="text-[#ff4d2e] group-hover:scale-110 transition-transform" />
-                  <span className="font-mono text-sm text-[#a0a0a0]">{label}</span>
+                  <Icon size={16} className="text-[var(--accent)] group-hover:scale-110 transition-transform" />
+                  <span className="font-mono text-sm text-[var(--text-secondary)]">{label}</span>
                 </div>
-                <p className="text-xs text-[#666666]">{desc}</p>
+                <p className="text-xs text-[var(--text-muted)]">{desc}</p>
               </div>
             ))}
           </div>
@@ -623,7 +646,7 @@ const Projects = () => {
   const ref = useRef(null)
 
   return (
-    <section id="projects" ref={ref} className="py-32 relative">
+    <section id="projects" ref={ref} className="py-32 relative bg-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <SectionHeader number="03" title="Projects" />
 
@@ -648,10 +671,10 @@ const Projects = () => {
             href={personalInfo.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-sharp inline-flex items-center gap-2"
+            className="btn-coffee-outline inline-flex items-center gap-2"
           >
-          <GithubIcon size={14} />
-          <span>View All on GitHub</span>
+            <GithubIcon size={14} />
+            <span>View All on GitHub</span>
             <ExternalLink size={14} />
           </a>
         </motion.div>
@@ -665,7 +688,7 @@ const Experience = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="experience" ref={ref} className="py-32 relative">
+    <section id="experience" ref={ref} className="py-32 relative bg-[var(--bg-secondary)]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <SectionHeader number="04" title="Experience" />
 
@@ -677,21 +700,21 @@ const Experience = () => {
               animate={isInView ? 'visible' : 'hidden'}
               variants={fadeInUp}
               transition={{ delay: index * 0.2 }}
-              className="relative pl-8 border-l border-[#1a1a1a] pb-16 last:pb-0"
+              className="relative pl-8 border-l border-[var(--border)] pb-16 last:pb-0"
             >
-              <div className="absolute -left-[5px] top-0 w-[9px] h-[9px] bg-[#ff4d2e]" />
+              <div className="absolute -left-[5px] top-0 w-[9px] h-[9px] bg-[var(--accent)]" />
 
               <div className="space-y-4">
                 <div className="flex flex-wrap items-baseline gap-4">
-                  <h3 className="font-serif text-2xl">{exp.role}</h3>
-                  <span className="font-mono text-sm text-[#666666]">{exp.period}</span>
+                  <h3 className="font-serif text-2xl text-[var(--text-primary)]">{exp.role}</h3>
+                  <span className="font-mono text-sm text-[var(--text-muted)]">{exp.period}</span>
                 </div>
-                <p className="text-[#ff4d2e] font-mono text-sm">{exp.company}</p>
-                <p className="text-[#a0a0a0] leading-relaxed">{exp.description}</p>
+                <p className="text-[var(--accent)] font-mono text-sm">{exp.company}</p>
+                <p className="text-[var(--text-secondary)] leading-relaxed">{exp.description}</p>
 
                 <div className="flex flex-wrap gap-2 pt-4">
                   {['Computer Science', 'Software Dev', 'AI'].map((tag) => (
-                    <span key={tag} className="tag">{tag}</span>
+                    <span key={tag} className="tag-coffee">{tag}</span>
                   ))}
                 </div>
               </div>
@@ -703,13 +726,13 @@ const Experience = () => {
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
           variants={fadeInUp}
-          className="mt-24 p-8 border border-[#1a1a1a]"
+          className="mt-24 p-8 card-coffee"
         >
           <div className="flex items-start gap-4">
-            <Sparkles size={20} className="text-[#ff4d2e] mt-1" />
+            <Sparkles size={20} className="text-[var(--accent)] mt-1" />
             <div>
-              <h4 className="font-serif text-lg mb-2">Always Learning</h4>
-              <p className="text-[#a0a0a0] text-sm">
+              <h4 className="font-serif text-lg mb-2 text-[var(--text-primary)]">Always Learning</h4>
+              <p className="text-[var(--text-secondary)] text-sm">
                 Currently expanding my knowledge through hands-on projects and exploring new frameworks and technologies.
               </p>
             </div>
@@ -725,7 +748,7 @@ const Contact = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
   return (
-    <section id="contact" ref={ref} className="py-32 relative">
+    <section id="contact" ref={ref} className="py-32 relative bg-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <SectionHeader number="05" title="Contact" />
 
@@ -735,11 +758,11 @@ const Contact = () => {
             animate={isInView ? 'visible' : 'hidden'}
             variants={fadeInLeft}
           >
-            <p className="font-serif text-3xl sm:text-4xl leading-tight mb-8">
+            <p className="font-serif text-3xl sm:text-4xl leading-tight mb-8 text-[var(--text-primary)]">
               Let's create something{' '}
-              <span className="text-[#ff4d2e]">together</span>.
+              <span className="text-[var(--accent)] italic">together</span>.
             </p>
-            <p className="text-[#a0a0a0] leading-relaxed mb-8 max-w-md">
+            <p className="text-[var(--text-secondary)] leading-relaxed mb-8 max-w-md">
               I'm always open to discussing new projects, creative ideas, or opportunities. Whether you need a full-stack solution or AI integration, let's talk.
             </p>
 
@@ -748,12 +771,12 @@ const Contact = () => {
                 href={`mailto:${personalInfo.email}`}
                 className="flex items-center gap-4 group"
               >
-                <div className="w-12 h-12 border border-[#1a1a1a] flex items-center justify-center group-hover:border-[#ff4d2e] transition-colors">
-                  <Mail size={18} className="text-[#a0a0a0] group-hover:text-[#ff4d2e] transition-colors" />
+                <div className="w-12 h-12 border border-[var(--border)] flex items-center justify-center group-hover:border-[var(--accent)] transition-colors bg-[var(--bg-secondary)]">
+                  <Mail size={18} className="text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" />
                 </div>
                 <div>
-                  <p className="font-mono text-xs text-[#666666] uppercase tracking-widest">Email</p>
-                  <p className="text-[#f5f5f0] group-hover:text-[#ff4d2e] transition-colors">{personalInfo.email}</p>
+                  <p className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">Email</p>
+                  <p className="text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">{personalInfo.email}</p>
                 </div>
               </a>
 
@@ -763,12 +786,12 @@ const Contact = () => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 group"
               >
-                <div className="w-12 h-12 border border-[#1a1a1a] flex items-center justify-center group-hover:border-[#ff4d2e] transition-colors">
-                  <GithubIcon size={18} className="text-[#a0a0a0] group-hover:text-[#ff4d2e] transition-colors" />
+                <div className="w-12 h-12 border border-[var(--border)] flex items-center justify-center group-hover:border-[var(--accent)] transition-colors bg-[var(--bg-secondary)]">
+                  <GithubIcon size={18} className="text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors" />
                 </div>
                 <div>
-                  <p className="font-mono text-xs text-[#666666] uppercase tracking-widest">GitHub</p>
-                  <p className="text-[#f5f5f0] group-hover:text-[#ff4d2e] transition-colors">@Abdoullah0055</p>
+                  <p className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">GitHub</p>
+                  <p className="text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">@Abdoullah0055</p>
                 </div>
               </a>
             </div>
@@ -781,21 +804,22 @@ const Contact = () => {
             className="flex items-center justify-center"
           >
             <div className="relative">
-              <div className="w-64 h-64 sm:w-80 sm:h-80 border border-[#1a1a1a] flex items-center justify-center">
-                <div className="text-center space-y-4">
-                  <Zap size={48} className="text-[#ff4d2e] mx-auto" />
-                  <p className="font-serif text-xl">Ready to build?</p>
+              <div className="w-64 h-64 sm:w-80 sm:h-80 border border-[var(--border)] flex items-center justify-center bg-[var(--bg-secondary)]">
+                <div className="text-center space-y-4 p-6">
+                  <Coffee size={48} className="text-[var(--accent)] mx-auto" />
+                  <p className="font-serif text-xl text-[var(--text-primary)]">Ready to brew?</p>
+                  <p className="text-[var(--text-muted)] text-sm">Let's create something amazing together.</p>
                   <a
                     href={`mailto:${personalInfo.email}`}
-                    className="btn-filled inline-flex items-center gap-2"
+                    className="btn-coffee inline-flex items-center gap-2 mt-4"
                   >
                     <span>Start a Project</span>
                     <ArrowUpRight size={14} />
                   </a>
                 </div>
               </div>
-              <div className="absolute -top-4 -right-4 w-24 h-24 border border-[#ff4d2e] opacity-30" />
-              <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-[#ff4d2e] opacity-10" />
+              <div className="absolute -top-4 -right-4 w-24 h-24 border border-[var(--accent)] opacity-30 rotate-3" />
+              <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-[var(--accent)] opacity-10 -rotate-6" />
             </div>
           </motion.div>
         </div>
@@ -806,11 +830,14 @@ const Contact = () => {
 
 const Footer = () => {
   return (
-    <footer className="py-12 border-t border-[#1a1a1a]">
+    <footer className="py-12 border-t border-[var(--border)] bg-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="font-serif text-lg">AE</p>
-          <p className="font-mono text-xs text-[#666666]">
+          <div className="flex items-center gap-2">
+            <Coffee size={20} className="text-[var(--accent)]" />
+            <span className="font-serif text-lg text-[var(--text-primary)]">AE</span>
+          </div>
+          <p className="font-mono text-xs text-[var(--text-muted)]">
             © {new Date().getFullYear()} Abdoullah El Ahmar. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
@@ -818,29 +845,47 @@ const Footer = () => {
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#666666] hover:text-[#ff4d2e] transition-colors"
+              className="text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
               aria-label="GitHub"
             >
-            <GithubIcon size={18} />
-          </a>
-          <a
-            href={`mailto:${personalInfo.email}`}
-            className="text-[#666666] hover:text-[#ff4d2e] transition-colors"
-            aria-label="Email"
-          >
-            <Mail size={18} />
-          </a>
+              <GithubIcon size={18} />
+            </a>
+            <a
+              href={`mailto:${personalInfo.email}`}
+              className="text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
+              aria-label="Email"
+            >
+              <Mail size={18} />
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
-)
+    </footer>
+  )
 }
 
 function App() {
+  const [darkMode, setDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') === 'dark' ||
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    }
+    return false
+  })
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark')
+      localStorage.setItem('theme', 'dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem('theme', 'light')
+    }
+  }, [darkMode])
+
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-[#f5f5f0] noise-overlay">
-      <Navigation />
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
+      <Navigation darkMode={darkMode} setDarkMode={setDarkMode} />
       <main>
         <Hero />
         <About />

@@ -1,92 +1,107 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Base Colors - Editorial Dark */
-  --color-bg-primary: #0a0a0a;
-  --color-bg-secondary: #111111;
-  --color-bg-tertiary: #1a1a1a;
-  --color-bg-elevated: #141414;
+  /* ========================================
+     COFFEE INSPIRED COLOR PALETTE
+     ======================================== */
 
-  /* Text Colors */
-  --color-text-primary: #f5f5f0;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #666666;
+  /* LIGHT THEME - Creamy Latte */
+  --color-cream-50: #FDFBF7;
+  --color-cream-100: #F9F5EE;
+  --color-cream-200: #F2EBDF;
+  --color-cream-300: #E8DBC6;
+  --color-cream-400: #D9C5A8;
 
-  /* Accent - Sharp Coral/Terracotta */
-  --color-accent: #ff4d2e;
-  --color-accent-hover: #ff6b4f;
-  --color-accent-dim: #ff4d2e20;
+  /* Coffee Browns - Light */
+  --color-latte-100: #C4A77D;
+  --color-latte-200: #A68B5B;
+  --color-latte-300: #8B7355;
+  --color-latte-400: #6B5344;
 
-  /* Secondary Accent - Electric Blue */
-  --color-accent-blue: #00d4ff;
-  --color-accent-blue-dim: #00d4ff20;
+  /* Espresso Accents - Light */
+  --color-espresso-light: #4A3728;
+  --color-espresso-hover-light: #5C4433;
+  --color-caramel-light: #C17F59;
+  --color-foam-light: #FFF8F0;
+
+  /* DARK THEME - Dark Roast */
+  --color-roast-900: #1A1410;
+  --color-roast-800: #221815;
+  --color-roast-700: #2D1F18;
+  --color-roast-600: #3D2A21;
+  --color-roast-500: #4A3A2E;
+
+  /* Coffee Browns - Dark */
+  --color-mocha-100: #8B6914;
+  --color-mocha-200: #A67C52;
+  --color-mocha-300: #C49A6C;
+  --color-mocha-400: #D4B896;
+
+  /* Espresso Accents - Dark */
+  --color-espresso-dark: #E8C4A2;
+  --color-espresso-hover-dark: #F5D5B8;
+  --color-caramel-dark: #D4956A;
+  --color-foam-dark: #2A1F1A;
 
   /* Typography */
   --font-serif: 'Playfair Display', Georgia, serif;
-  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-mono: 'Space Mono', 'Fira Code', monospace;
   --font-sans: system-ui, -apple-system, sans-serif;
 
   /* Animations */
-  --animate-reveal-up: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-reveal-left: reveal-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-reveal-scale: reveal-scale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-slide-line: slide-line 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  --animate-text-shimmer: text-shimmer 3s ease-in-out infinite;
-  --animate-border-draw: border-draw 1s ease-out forwards;
-  --animate-float-subtle: float-subtle 6s ease-in-out infinite;
-  --animate-pulse-accent: pulse-accent 2s ease-in-out infinite;
-  --animate-marquee: marquee 30s linear infinite;
+  --animate-pour: pour 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-steam: steam 3s ease-in-out infinite;
+  --animate-swirl: swirl 8s linear infinite;
+  --animate-fade-in: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-slide-up: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-grain: grain 8s steps(10) infinite;
 
-  @keyframes reveal-up {
-    from { opacity: 0; transform: translateY(40px); }
+  @keyframes pour {
+    from { transform: translateY(-100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes steam {
+    0%, 100% { opacity: 0.3; transform: translateY(0) scaleX(1); }
+    50% { opacity: 0.6; transform: translateY(-10px) scaleX(1.1); }
+  }
+
+  @keyframes swirl {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes reveal-left {
-    from { opacity: 0; transform: translateX(-40px); }
-    to { opacity: 1; transform: translateX(0); }
-  }
-
-  @keyframes reveal-scale {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes slide-line {
-    from { transform: scaleX(0); transform-origin: left; }
-    to { transform: scaleX(1); transform-origin: left; }
-  }
-
-  @keyframes text-shimmer {
-    0%, 100% { background-position: -200% center; }
-    50% { background-position: 200% center; }
-  }
-
-  @keyframes border-draw {
-    from { stroke-dashoffset: 1000; }
-    to { stroke-dashoffset: 0; }
-  }
-
-  @keyframes float-subtle {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(1deg); }
-  }
-
-  @keyframes pulse-accent {
-    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 77, 46, 0.4); }
-    50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(255, 77, 46, 0); }
-  }
-
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+  @keyframes grain {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-5%, -10%); }
+    20% { transform: translate(-15%, 5%); }
+    30% { transform: translate(7%, -25%); }
+    40% { transform: translate(-5%, 25%); }
+    50% { transform: translate(-15%, 10%); }
+    60% { transform: translate(15%, 0%); }
+    70% { transform: translate(0%, 15%); }
+    80% { transform: translate(3%, 35%); }
+    90% { transform: translate(-10%, 10%); }
   }
 }
 
-/* Base Styles */
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
 * {
   box-sizing: border-box;
 }
@@ -97,40 +112,90 @@ html {
 }
 
 body {
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
   font-family: var(--font-sans);
   overflow-x: hidden;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-/* Selection */
+/* Light Theme (default) */
+:root {
+  --bg-primary: #FDFBF7;
+  --bg-secondary: #F9F5EE;
+  --bg-tertiary: #F2EBDF;
+  --bg-elevated: #FFF8F0;
+
+  --text-primary: #2D1F18;
+  --text-secondary: #5C4433;
+  --text-muted: #8B7355;
+
+  --accent: #8B4513;
+  --accent-hover: #A0522D;
+  --accent-dim: rgba(139, 69, 19, 0.1);
+
+  --border: #E8DBC6;
+  --border-hover: #C4A77D;
+
+  --coffee-stain: rgba(139, 69, 19, 0.03);
+}
+
+/* Dark Theme */
+.dark {
+  --bg-primary: #1A1410;
+  --bg-secondary: #221815;
+  --bg-tertiary: #2D1F18;
+  --bg-elevated: #3D2A21;
+
+  --text-primary: #E8C4A2;
+  --text-secondary: #C49A6C;
+  --text-muted: #8B6914;
+
+  --accent: #D4956A;
+  --accent-hover: #E8C4A2;
+  --accent-dim: rgba(212, 149, 106, 0.15);
+
+  --border: #4A3A2E;
+  --border-hover: #6B5344;
+
+  --coffee-stain: rgba(212, 149, 106, 0.05);
+}
+
+/* Apply theme colors */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Selection - Coffee inspired */
 ::selection {
-  background-color: var(--color-accent);
-  color: var(--color-bg-primary);
+  background-color: var(--accent);
+  color: var(--bg-primary);
 }
 
-/* Scrollbar */
+/* Scrollbar - Coffee tones */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--color-bg-secondary);
+  background-color: var(--bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-text-muted);
-  border-radius: 3px;
+  background-color: var(--text-muted);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-accent);
+  background-color: var(--accent);
 }
 
-/* Typography Utilities */
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
 .font-serif {
   font-family: var(--font-serif);
 }
@@ -139,340 +204,557 @@ body {
   font-family: var(--font-mono);
 }
 
-/* Editorial Text Styles */
+/* Coffee-styled headings */
 .text-editorial {
   font-family: var(--font-serif);
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
 
-.text-editorial-italic {
+.text-roast {
   font-family: var(--font-serif);
   font-style: italic;
-  letter-spacing: -0.01em;
+  color: var(--accent);
 }
 
-/* Accent Text Gradient */
-.text-accent-gradient {
-  background: linear-gradient(135deg, var(--color-accent) 0%, #ff8a65 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+/* ========================================
+   COFFEE-THEMED COMPONENTS
+   ======================================== */
 
-/* Brutalist Borders */
-.border-brutalist {
-  border: 2px solid var(--color-text-muted);
-}
-
-.border-brutalist-accent {
-  border: 2px solid var(--color-accent);
-}
-
-/* Editorial Card */
-.card-editorial {
-  background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-bg-tertiary);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.card-editorial:hover {
-  border-color: var(--color-accent);
-  transform: translateY(-4px);
-}
-
-/* Sharp Button */
-.btn-sharp {
+/* Coffee Stain Effect */
+.coffee-stain {
   position: relative;
-  background-color: transparent;
-  border: 2px solid var(--color-text-primary);
-  color: var(--color-text-primary);
+}
+
+.coffee-stain::before {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--coffee-stain);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Steam Animation Effect */
+.steam-container {
+  position: relative;
+}
+
+.steam-container::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(ellipse at center, var(--accent-dim) 0%, transparent 70%);
+  filter: blur(20px);
+  animation: steam 3s ease-in-out infinite;
+  opacity: 0.4;
+}
+
+/* Coffee Card */
+.card-coffee {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-coffee::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, var(--accent-dim) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-coffee:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(139, 69, 19, 0.15);
+}
+
+.card-coffee:hover::before {
+  opacity: 1;
+}
+
+.dark .card-coffee:hover {
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.4);
+}
+
+/* Coffee Bean Button */
+.btn-coffee {
+  position: relative;
+  background-color: var(--accent);
+  color: var(--bg-primary);
   font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 1rem 2rem;
+  border: none;
+  border-radius: 2px;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
 }
 
-.btn-sharp::before {
+.btn-coffee::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-color: var(--color-accent);
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-coffee:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px -10px rgba(139, 69, 19, 0.4);
+}
+
+.btn-coffee:hover::before {
+  opacity: 1;
+}
+
+/* Outline Coffee Button */
+.btn-coffee-outline {
+  position: relative;
+  background-color: transparent;
+  border: 2px solid var(--text-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.btn-coffee-outline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--text-primary);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
 }
 
-.btn-sharp:hover {
-  border-color: var(--color-accent);
-  color: var(--color-text-primary);
+.btn-coffee-outline:hover {
+  color: var(--bg-primary);
+  border-color: var(--text-primary);
 }
 
-.btn-sharp:hover::before {
+.btn-coffee-outline:hover::before {
   transform: scaleX(1);
   transform-origin: left;
 }
 
-/* Filled Button */
-.btn-filled {
-  background-color: var(--color-accent);
-  color: var(--color-text-primary);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 1rem 2rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn-filled:hover {
-  background-color: var(--color-accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px -10px rgba(255, 77, 46, 0.5);
-}
-
 /* Ghost Button */
-.btn-ghost {
-  color: var(--color-text-secondary);
+.btn-ghost-coffee {
+  color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.05em;
   transition: color 0.3s ease;
-}
-
-.btn-ghost:hover {
-  color: var(--color-accent);
-}
-
-/* Section Divider */
-.section-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0%, var(--color-text-muted) 50%, transparent 100%);
-  opacity: 0.3;
-}
-
-/* Diagonal Accent */
-.diagonal-accent {
   position: relative;
 }
 
-.diagonal-accent::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--color-accent);
-  transform: skewX(-20deg);
-}
-
-/* Large Display Numbers */
-.display-number {
-  font-family: var(--font-serif);
-  font-size: clamp(4rem, 15vw, 12rem);
-  font-weight: 400;
-  line-height: 0.85;
-  color: var(--color-bg-tertiary);
-  -webkit-text-stroke: 1px var(--color-text-muted);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.display-number:hover {
-  color: var(--color-accent);
-  -webkit-text-stroke: 1px var(--color-accent);
-}
-
-/* Reveal Animation Classes */
-.reveal-up {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-.reveal-up.visible {
-  animation: reveal-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-40px);
-}
-
-.reveal-left.visible {
-  animation: reveal-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.reveal-scale {
-  opacity: 0;
-  transform: scale(0.95);
-}
-
-.reveal-scale.visible {
-  animation: reveal-scale 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Stagger delays */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
-
-/* Tag/Badge */
-.tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.375rem 0.875rem;
-  background-color: var(--color-bg-tertiary);
-  border: 1px solid var(--color-bg-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-  color: var(--color-text-secondary);
-  transition: all 0.3s ease;
-}
-
-.tag:hover {
-  border-color: var(--color-accent);
-  color: var(--color-text-primary);
-}
-
-.tag::before {
-  content: '';
-  width: 4px;
-  height: 4px;
-  background-color: var(--color-accent);
-  border-radius: 50%;
-}
-
-/* Grid Lines Background */
-.grid-lines {
-  position: relative;
-}
-
-.grid-lines::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 80px 80px;
-  pointer-events: none;
-}
-
-/* Noise Texture Overlay */
-.noise-overlay {
-  position: relative;
-}
-
-.noise-overlay::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.02;
-  pointer-events: none;
-}
-
-/* Line Decoration */
-.line-decoration {
-  position: relative;
-  padding-left: 2rem;
-}
-
-.line-decoration::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.5em;
-  width: 1.25rem;
-  height: 2px;
-  background-color: var(--color-accent);
-}
-
-/* Skill Bar */
-.skill-bar {
-  height: 2px;
-  background-color: var(--color-bg-tertiary);
-  overflow: hidden;
-}
-
-.skill-bar-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-accent) 0%, #ff8a65 100%);
-  transform-origin: left;
-  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Project Card Image Overlay */
-.project-image-overlay {
-  position: relative;
-  overflow: hidden;
-}
-
-.project-image-overlay::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 0%, var(--color-bg-primary) 100%);
-  opacity: 0.8;
-}
-
-/* Navigation Link Underline */
-.nav-link {
-  position: relative;
-}
-
-.nav-link::after {
+.btn-ghost-coffee::after {
   content: '';
   position: absolute;
   bottom: -4px;
   left: 0;
   width: 0;
   height: 1px;
-  background-color: var(--color-accent);
+  background-color: var(--accent);
   transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
+.btn-ghost-coffee:hover {
+  color: var(--accent);
+}
+
+.btn-ghost-coffee:hover::after {
   width: 100%;
 }
 
-/* Horizontal Rule with Accent */
-.hr-accent {
-  border: none;
+/* Coffee Ring Divider */
+.section-divider-coffee {
   height: 1px;
-  background: linear-gradient(90deg, var(--color-accent) 0%, transparent 100%);
-  margin: 2rem 0;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--border) 20%,
+    var(--border-hover) 50%,
+    var(--border) 80%,
+    transparent 100%
+  );
+  position: relative;
 }
 
-/* Marquee Container */
-.marquee-container {
-  overflow: hidden;
-  white-space: nowrap;
+.section-divider-coffee::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background-color: var(--bg-primary);
 }
 
-.marquee-content {
+/* Coffee Tag */
+.tag-coffee {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.875rem;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.tag-coffee::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background-color: var(--accent);
+  border-radius: 50%;
+}
+
+.tag-coffee:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+/* ========================================
+   COFFEE TEXTURES & EFFECTS
+   ======================================== */
+
+/* Paper texture for light mode */
+.paper-texture {
+  position: relative;
+}
+
+.paper-texture::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Wood grain texture for dark mode */
+.wood-texture {
+  position: relative;
+}
+
+.wood-texture::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='wood'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05 0.005' numOctaves='5'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23wood)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Coffee bean decorative element */
+.coffee-bean {
   display: inline-block;
-  animation: marquee 30s linear infinite;
+  width: 20px;
+  height: 10px;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  border-radius: 50%;
+  position: relative;
+  transform: rotate(-15deg);
 }
 
-/* Focus States */
+.coffee-bean::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 1px;
+}
+
+/* Latte Art Circle */
+.latte-art {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--accent) 0deg,
+    var(--bg-secondary) 60deg,
+    var(--accent) 120deg,
+    var(--bg-secondary) 180deg,
+    var(--accent) 240deg,
+    var(--bg-secondary) 300deg,
+    var(--accent) 360deg
+  );
+  opacity: 0.1;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+.nav-coffee {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.nav-coffee.scrolled {
+  background-color: rgba(var(--bg-primary), 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.nav-link-coffee {
+  position: relative;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav-link-coffee::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link-coffee:hover,
+.nav-link-coffee.active {
+  color: var(--accent);
+}
+
+.nav-link-coffee:hover::after,
+.nav-link-coffee.active::after {
+  width: 100%;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .theme-toggle-thumb {
+  transform: translateX(24px);
+}
+
+/* ========================================
+   SKILL BARS - COFFEE STYLE
+   ======================================== */
+
+.skill-bar-coffee {
+  height: 4px;
+  background-color: var(--bg-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skill-bar-coffee::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 4px,
+    var(--bg-primary) 4px,
+    var(--bg-primary) 6px
+  );
+  opacity: 0.5;
+}
+
+.skill-bar-coffee-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
+  border-radius: 2px;
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.skill-bar-coffee-fill::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent);
+}
+
+/* ========================================
+   PROJECT CARDS - COFFEE STYLE
+   ======================================== */
+
+.project-card-coffee {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card-coffee::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-hover) 100%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card-coffee:hover::before {
+  transform: scaleX(1);
+}
+
+.project-card-coffee:hover {
+  border-color: var(--border-hover);
+}
+
+/* ========================================
+   HERO - COFFEE STYLE
+   ======================================== */
+
+.hero-coffee {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-coffee::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--accent-dim) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+/* Large display number - Coffee stained look */
+.display-coffee {
+  font-family: var(--font-serif);
+  font-size: clamp(6rem, 20vw, 16rem);
+  font-weight: 400;
+  line-height: 0.85;
+  color: var(--bg-tertiary);
+  -webkit-text-stroke: 1px var(--border);
+  position: relative;
+}
+
+.dark .display-coffee {
+  color: var(--bg-secondary);
+  -webkit-text-stroke: 1px var(--border);
+  opacity: 0.5;
+}
+
+/* ========================================
+   ANIMATION CLASSES
+   ======================================== */
+
+.animate-pour {
+  opacity: 0;
+  animation: pour 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-steam {
+  animation: steam 3s ease-in-out infinite;
+}
+
+.animate-swirl {
+  animation: swirl 8s linear infinite;
+}
+
+/* Stagger animations */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* ========================================
+   UTILITIES
+   ======================================== */
+
+/* Focus states */
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
 
-/* Reduced Motion */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -480,5 +762,12 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .display-coffee {
+    font-size: clamp(4rem, 15vw, 8rem);
   }
 }
